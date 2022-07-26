@@ -1,0 +1,96 @@
+###
+GET http://localhost:9000/api/login/forellana HTTP/1.1
+
+###
+GET http://localhost:9000/api/maxIdCliente HTTP/1.1
+
+###
+POST http://localhost:9000/api/registrarCliente HTTP/1.1
+Content-Type: application/json
+
+  {
+    "NOMBRE": "Mauricio",
+    "APELLIDO": "Arias",
+    "RAZSOC": "telefonica ",
+    "TELEFONO": "0000-0000",
+    "FECH_REGISTRO": "2022-07-20",
+    "FECH_MODI": "2022-07-20",
+    "IDUSUARIO_MOD": 1,
+    "IDUSUARIO": 1
+  }
+
+### 
+POST http://localhost:9000/api/registrarDomicilio HTTP/1.1
+Content-Type: application/json
+
+  {
+    "DIRECCION": "Col. Escalon",
+    "DEPARTAMENTO": "San Salvador",
+    "MUNICIPIO": "San Salvador",
+    "IDCLIENTE": 3
+  }
+
+###
+POST http://localhost:9000/api/registrarDocumentos HTTP/1.1
+Content-Type: application/json
+
+  {
+    "TIPDOCU": "NIT",
+    "NODOCU": "0000-000000-000-0",
+    "IDCLIENTE": 3
+  }
+
+
+###
+GET http://localhost:9000/api/infoCliente/3 HTTP/1.1
+
+###
+GET http://localhost:9000/api/infoClienteDom/3 HTTP/1.1
+
+###
+GET http://localhost:9000/api/infoClienteDoc/2 HTTP/1.1
+
+
+###
+GET http://localhost:9000/api/infoClientes HTTP/1.1
+
+
+### 
+PUT http://localhost:9000/api/modificarCliente/2 HTTP/1.1
+Content-Type: application/json
+
+ {
+    "NOMBRE": "Vladimir",
+    "APELLIDO": "Melendez",
+    "RAZSOC": "telefonica ",
+    "TELEFONO": "0000-0000",
+    "FECH_REGISTRO": "2022-07-20",
+    "FECH_MODI": "2022-07-20",
+    "IDUSUARIO_MOD": 1,
+    "IDUSUARIO": 1
+  }
+
+###
+PUT http://localhost:9000/api/modificarDomicilio/3 HTTP/1.1
+Content-Type: application/json
+
+  {
+    "DIRECCION": "Col. San Benito",
+    "DEPARTAMENTO": "San Salvador",
+    "MUNICIPIO": "San Salvador",
+    "IDCLIENTE": 3
+  }
+
+###
+PUT http://localhost:9000/api/modificarDocumentos/2 HTTP/1.1
+Content-Type: application/json
+
+  {
+    "TIPDOCU": "DUI",
+    "NODOCU": "00000000-0",
+    "IDCLIENTE": 2
+  }
+
+
+### 
+DELETE http://localhost:9000/api/eliminarCliente/ HTTP/1.1
