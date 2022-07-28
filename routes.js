@@ -181,7 +181,8 @@ routes.put('/modificarDocumento/:id', (req, res)=>{
 })
 
 
-/* METODO PARA ELIMINAR UN CLIENTE */
+/* METODOS PARA ELIMINAR UN CLIENTE */
+/* Metodo que elimina TODA la informacion de un cliente */
 routes.delete('/eliminarCliente/:id', (req, res)=>{
     req.getConnection((err, conn)=>{
         if(err) return res.send(err)
@@ -192,6 +193,32 @@ routes.delete('/eliminarCliente/:id', (req, res)=>{
         })
     })
 })
+
+/* Metodo que elimina el domicilio de un cliente */
+routes.delete('/eliminarDomicilio/:id', (req, res)=>{
+    req.getConnection((err, conn)=>{
+        if(err) return res.send(err)
+        conn.query('DELETE FROM domicilios WHERE IDCLIENTE = ?', [req.params.id], (err, rows)=>{
+            if(err) return res.send(err)
+
+            res.send('Cliente actualizado!')
+        })
+    })
+})
+
+
+/* Metodo que elimina el documento de un cliente */
+routes.delete('/eliminarDocumento/:id', (req, res)=>{
+    req.getConnection((err, conn)=>{
+        if(err) return res.send(err)
+        conn.query('DELETE FROM documentos WHERE IDCLIENTE = ?', [req.params.id], (err, rows)=>{
+            if(err) return res.send(err)
+
+            res.send('Cliente actualizado!')
+        })
+    })
+})
+
 
 
 // Exportando metodo 
