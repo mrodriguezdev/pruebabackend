@@ -7,19 +7,30 @@ const routes = express.Router()
 // Agregando rutas que a su vez son las consultas a la base de datos del
 
 /* METODO PARA LOGIN */
-routes.get('/login/:usuario', (req, res) => {
-    req.getConnection((error, connection) =>{
+routes.post("/login",(request,response) => {
 
-        if(error) return res.send(error)
-        connection.query('select * from usuarios where NOMBREUSUARIO = ?', [req.params.usuario], (error, filas)=>{
-            if(error) return res.send(error)
+    request.getConnection((error, connection) =>{
 
-            res.json(filas)
+        if(error) return response.send(error)
+        connection.query('select * from usuarios where NOMBREUSUARIO = ? and CLAVE = ?', [request.body.usuario, request.body.password], (error, filas)=>{
+            if(error) return response.send(error)
+
+            if (filas != null){
+                res.json({
+                    status: '200',
+                    items: filas
+                });
+            } else {
+                res.json(404, {status: err});
+            }
+
         })
     })
-})
+    
 
-/* METODO PARA OBTENER EL ID DEL CLIENTE CREADO */
+});
+
+/* Metodo para obtener el ID del cliente que se acaba de crear */
 routes.get('/maxIdCliente', (req, res) => {
     req.getConnection((error, connection) =>{
 
@@ -32,11 +43,13 @@ routes.get('/maxIdCliente', (req, res) => {
     })
 })
 
-routes.get('/infoClientes', (req, res) => {
+
+/* Metodo para obtener una lista de los clientes y su informacion */
+routes.get('/listadoclientes', (req, res) => {
     req.getConnection((error, connection) =>{
 
-        if(error) return res.send(error)
-        connection.query('select * from clientes', (error, filas)=>{
+        if(error) return res.send(error).status(403)
+        connection.query('select * from vw_listadoclientes', (error, filas)=>{
             if(error) return res.send(error)
 
             res.json(filas)
@@ -46,6 +59,7 @@ routes.get('/infoClientes', (req, res) => {
 
 
 /* METODOS PARA REGISTRAR LOS DATOS DEL CLIENTE */
+/* Metodo que registrar los datos del cliente en tabla clientes */
 routes.post('/registrarCliente', (req, res) => {
     req.getConnection((error, connection) =>{
 
@@ -60,6 +74,7 @@ routes.post('/registrarCliente', (req, res) => {
     })
 })
 
+/* Metodo que registrar los datos del cliente en tabla domicilios */
 routes.post('/registrarDomicilio', (req, res) => {
     req.getConnection((error, connection) =>{
 
@@ -74,7 +89,8 @@ routes.post('/registrarDomicilio', (req, res) => {
     })
 })
 
-routes.post('/registrarDocumentos', (req, res) => {
+/* Metodo que regsitra los datos del cliente en tabla documentos */
+routes.post('/registrarDocumento', (req, res) => {
     req.getConnection((error, connection) =>{
 
         if(error) return res.send(error)
@@ -128,6 +144,7 @@ routes.get('/infoClienteDoc/:id', (req, res) => {
 
 
 /* METODOS PARA ACTUALIZAR LA INFORMACION DE UN CLIENTE */
+/* Metodo que modifica los datos del cliente en tabla clientes */
 routes.put('/modificarCliente/:id', (req, res)=>{
     req.getConnection((err, conn)=>{
         if(err) return res.send(err)
@@ -139,6 +156,7 @@ routes.put('/modificarCliente/:id', (req, res)=>{
     })
 })
 
+/* Metodo que modifica los datos del cliente en tabla domicilios */
 routes.put('/modificarDomicilio/:id', (req, res)=>{
     req.getConnection((err, conn)=>{
         if(err) return res.send(err)
@@ -150,7 +168,8 @@ routes.put('/modificarDomicilio/:id', (req, res)=>{
     })
 })
 
-routes.put('/modificarDocumentos/:id', (req, res)=>{
+/* Metodo que modifica los datos del cliente en tabla documentos */
+routes.put('/modificarDocumento/:id', (req, res)=>{
     req.getConnection((err, conn)=>{
         if(err) return res.send(err)
         conn.query('UPDATE documentos set ? WHERE IDCLIENTE = ?', [req.body, req.params.id], (err, rows)=>{
@@ -162,14 +181,14 @@ routes.put('/modificarDocumentos/:id', (req, res)=>{
 })
 
 
-/* METODOS PARA ELIMINAR UN CLIENTE */
+/* METODO PARA ELIMINAR UN CLIENTE */
 routes.delete('/eliminarCliente/:id', (req, res)=>{
     req.getConnection((err, conn)=>{
         if(err) return res.send(err)
         conn.query('DELETE FROM clientes WHERE IDCLIENTE = ?', [req.params.id], (err, rows)=>{
             if(err) return res.send(err)
 
-            res.send('Cliente eliminado!')
+            res.send('Cliente actualizado!')
         })
     })
 })

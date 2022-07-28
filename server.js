@@ -1,6 +1,7 @@
 // Creando constante para requerir el modulo de express
 const express = require('express')
 
+
 // Constante para modulo Mysql y modulo expressMyconnection
 const mysql = require('mysql')
 const myconn = require('express-myconnection')

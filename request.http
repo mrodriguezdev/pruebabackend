@@ -1,5 +1,11 @@
 ###
-GET http://localhost:9000/api/login/forellana HTTP/1.1
+POST http://localhost:9000/api/login HTTP/1.1
+Content-Type: application/json
+
+  {
+    "usuario": "forellana",
+    "password": "123"
+  }
 
 ###
 GET http://localhost:9000/api/maxIdCliente HTTP/1.1
@@ -42,17 +48,17 @@ Content-Type: application/json
 
 
 ###
-GET http://localhost:9000/api/infoCliente/3 HTTP/1.1
+GET http://localhost:9000/api/infoCliente/4 HTTP/1.1
 
 ###
-GET http://localhost:9000/api/infoClienteDom/3 HTTP/1.1
+GET http://localhost:9000/api/infoClienteDom/4 HTTP/1.1
 
 ###
-GET http://localhost:9000/api/infoClienteDoc/2 HTTP/1.1
+GET http://localhost:9000/api/infoClienteDoc/4 HTTP/1.1
 
 
 ###
-GET http://localhost:9000/api/infoClientes HTTP/1.1
+GET http://localhost:9000/api/listadoclientes HTTP/1.1
 
 
 ### 
@@ -82,13 +88,13 @@ Content-Type: application/json
   }
 
 ###
-PUT http://localhost:9000/api/modificarDocumentos/2 HTTP/1.1
+PUT http://localhost:9000/api/modificarDocumento/4 HTTP/1.1
 Content-Type: application/json
 
   {
-    "TIPDOCU": "DUI",
+    "TIPDOCU": "NIT",
     "NODOCU": "00000000-0",
-    "IDCLIENTE": 2
+    "IDCLIENTE": 4
   }
 
 
